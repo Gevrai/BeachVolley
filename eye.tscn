@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=3 uid="uid://fkdg6k35vk62"]
+
+[ext_resource type="Script" path="res://scripts/blinking_eye.gd" id="1_ao708"]
+
+[sub_resource type="Animation" id="Animation_rvdgv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("White:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(12, 12)]
+}
+
+[sub_resource type="Animation" id="Animation_1b51p"]
+resource_name = "blink"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1e-05, 0.732044),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("White:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(12, 12), Vector2(12, 1e-05), Vector2(12, 12)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tskqc"]
+_data = {
+"RESET": SubResource("Animation_rvdgv"),
+"blink": SubResource("Animation_1b51p")
+}
+
+[sub_resource type="SphereMesh" id="SphereMesh_ech8w"]
+
+[node name="root" type="Node2D"]
+script = ExtResource("1_ao708")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tskqc")
+}
+
+[node name="Back" type="MeshInstance2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(15, 15)
+mesh = SubResource("SphereMesh_ech8w")
+
+[node name="White" type="MeshInstance2D" parent="."]
+scale = Vector2(12, 12)
+mesh = SubResource("SphereMesh_ech8w")
+
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="Pupil" type="MeshInstance2D" parent="Pivot"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(4, 0)
+scale = Vector2(3, 3)
+mesh = SubResource("SphereMesh_ech8w")

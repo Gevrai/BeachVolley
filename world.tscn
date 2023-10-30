@@ -1,0 +1,147 @@
+[gd_scene load_steps=14 format=3 uid="uid://cipyeim7mg7j8"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_aek51"]
+[ext_resource type="PackedScene" uid="uid://bi0wjkso8pym1" path="res://player.tscn" id="1_l5561"]
+[ext_resource type="Texture2D" uid="uid://bimmippwbyxvn" path="res://assets/background1.png" id="2_ighec"]
+[ext_resource type="Texture2D" uid="uid://cfvw0j6gxv1j1" path="res://assets/background2.png" id="3_ndccu"]
+[ext_resource type="Shader" path="res://texture_scroller.gdshader" id="4_80mdh"]
+[ext_resource type="Texture2D" uid="uid://cegodlxn63786" path="res://assets/clouds_front.png" id="5_4cpfe"]
+[ext_resource type="Texture2D" uid="uid://de63px8aeyius" path="res://assets/clouds_back.png" id="6_ggkgc"]
+[ext_resource type="PackedScene" uid="uid://0bj4l2nvcxfl" path="res://goal.tscn" id="7_1a4ry"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_qjx66"]
+frames = 2
+frame_0/texture = ExtResource("2_ighec")
+frame_1/texture = ExtResource("3_ndccu")
+frame_1/duration = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jo35q"]
+shader = ExtResource("4_80mdh")
+shader_parameter/direction = Vector2(0.5, 0)
+shader_parameter/speed_scale = 0.01
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jf6ia"]
+shader = ExtResource("4_80mdh")
+shader_parameter/direction = Vector2(1, 0)
+shader_parameter/speed_scale = 0.01
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_h1w05"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teae4"]
+size = Vector2(3, 62)
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_aek51")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Background" type="TextureRect" parent="."]
+offset_left = -150.0
+offset_top = -100.0
+offset_right = -110.0
+offset_bottom = -60.0
+texture = SubResource("AnimatedTexture_qjx66")
+stretch_mode = 2
+
+[node name="CloudsBack" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_jo35q")
+offset_left = -150.0
+offset_top = -113.0
+offset_right = 150.0
+offset_bottom = 87.0
+texture = ExtResource("6_ggkgc")
+stretch_mode = 1
+
+[node name="CloudsFront" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_jf6ia")
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+texture = ExtResource("5_4cpfe")
+stretch_mode = 1
+
+[node name="Bounds" type="StaticBody2D" parent="."]
+position = Vector2(0, 69)
+collision_mask = 6
+
+[node name="Ground" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(0, 19)
+shape = SubResource("WorldBoundaryShape2D_h1w05")
+
+[node name="Left" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(-152, 19)
+rotation = 1.57079
+shape = SubResource("WorldBoundaryShape2D_h1w05")
+
+[node name="Right" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(152, 19)
+rotation = -1.57079
+shape = SubResource("WorldBoundaryShape2D_h1w05")
+
+[node name="Net" type="StaticBody2D" parent="."]
+position = Vector2(0, 50)
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Net"]
+position = Vector2(-0.5, 5)
+shape = SubResource("RectangleShape2D_teae4")
+
+[node name="Player1" parent="." instance=ExtResource("1_l5561")]
+position = Vector2(-85, 74)
+
+[node name="Player2" parent="." instance=ExtResource("1_l5561")]
+position = Vector2(110, 74)
+playerID = "player2"
+
+[node name="Goal1" parent="." instance=ExtResource("7_1a4ry")]
+position = Vector2(-77, 90)
+
+[node name="Goal2" parent="." instance=ExtResource("7_1a4ry")]
+position = Vector2(77, 90)
+
+[node name="Spawn0" type="Marker2D" parent="."]
+position = Vector2(0, -42)
+
+[node name="Spawn1" type="Marker2D" parent="."]
+position = Vector2(-48, -42)
+
+[node name="Spawn2" type="Marker2D" parent="."]
+position = Vector2(48, -42)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Score1" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = -53.0
+offset_top = -100.0
+offset_right = -13.0
+offset_bottom = -60.0
+scale = Vector2(1.2, 1.2)
+text = "0"
+horizontal_alignment = 2
+
+[node name="-" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = -2.5
+offset_top = -100.0
+offset_right = 37.5
+offset_bottom = -60.0
+scale = Vector2(1.2, 1.2)
+text = "-"
+
+[node name="Score2" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = -100.0
+offset_right = 45.0
+offset_bottom = -60.0
+scale = Vector2(1.2, 1.2)
+text = "3"
+
+[connection signal="body_entered" from="Goal1" to="." method="_on_goal_1_body_entered"]
+[connection signal="body_entered" from="Goal2" to="." method="_on_goal_2_body_entered"]
