@@ -1,4 +1,7 @@
+
 # BeachVolley
+Play on itch.io: https://gejo.itch.io/beach-volley
+
 It's a bad game of volleyball on a beach, based on an old flash web game that I vaguely remember playing a long while ago, but I have no idea what it was.
 
 First godot 4 project, with 'original' pixel 'art'! Yes it's ugly, but its mine.
