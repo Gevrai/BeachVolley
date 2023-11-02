@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbagtj5oogk32"
-path="res://.godot/imported/ball-biche.aseprite-71859aa62f4858dd1fe4b13e32469ab6.ctex"
+uid="uid://brd11f2bbh7st"
+path="res://.godot/imported/itchio-cover.jpg-60a1ba5a1fd59455c110aebd93147687.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ball-biche.aseprite"
-dest_files=["res://.godot/imported/ball-biche.aseprite-71859aa62f4858dd1fe4b13e32469ab6.ctex"]
+source_file="res://assets/itchio-cover.jpg"
+dest_files=["res://.godot/imported/itchio-cover.jpg-60a1ba5a1fd59455c110aebd93147687.ctex"]
 
 [params]
 

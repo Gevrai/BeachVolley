@@ -1,8 +1,68 @@
-[gd_scene load_steps=5 format=3 uid="uid://bi0wjkso8pym1"]
+[gd_scene load_steps=12 format=3 uid="uid://bi0wjkso8pym1"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_y1wcq"]
+[ext_resource type="Texture2D" uid="uid://75glkxib6ktu" path="res://assets/player.png" id="2_a1u8d"]
 [ext_resource type="PackedScene" uid="uid://fkdg6k35vk62" path="res://eye.tscn" id="2_bbohh"]
-[ext_resource type="PackedScene" uid="uid://uh1fd6j5vnt1" path="res://assets/player.aseprite" id="3_d3ody"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kawy1"]
+atlas = ExtResource("2_a1u8d")
+region = Rect2(0, 0, 52, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2xdc"]
+atlas = ExtResource("2_a1u8d")
+region = Rect2(52, 30, 52, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thvvr"]
+atlas = ExtResource("2_a1u8d")
+region = Rect2(0, 30, 52, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icyih"]
+atlas = ExtResource("2_a1u8d")
+region = Rect2(0, 0, 52, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smkld"]
+atlas = ExtResource("2_a1u8d")
+region = Rect2(52, 0, 52, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cc4v2"]
+atlas = ExtResource("2_a1u8d")
+region = Rect2(104, 0, 52, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a1xen"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kawy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2xdc")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thvvr")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_icyih")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smkld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cc4v2")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qq01y"]
 size = Vector2(10, 2)
@@ -18,22 +78,21 @@ lock_rotation = true
 script = ExtResource("1_y1wcq")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-23, 0, -23, -9, -18, -16, -6, -20, 9, -20, 19, -16, 23, -13, 23, -8, 20, 5, 16, 10, -16, 10)
+polygon = PackedVector2Array(-20, 0, -20, -9, -14, -17, -3, -20, 9, -20, 26, -13, 26, -7, 19, 10, -13, 10)
 
 [node name="Body" type="Node2D" parent="."]
 position = Vector2(0, 10)
 
-[node name="AnimatedSprite2D" parent="Body" instance=ExtResource("3_d3ody")]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body"]
 position = Vector2(0, -15)
+sprite_frames = SubResource("SpriteFrames_a1xen")
 animation = &"Idle"
-autoplay = "Idle"
-frame_progress = 0.629251
 
 [node name="Eye" parent="Body" instance=ExtResource("2_bbohh")]
-position = Vector2(13, -25)
+position = Vector2(16, -25)
 
 [node name="FloorDetectionArea" type="Area2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(3, 2)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorDetectionArea"]
