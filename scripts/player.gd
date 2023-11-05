@@ -39,6 +39,7 @@ func _physics_process(_delta: float) -> void:
 		$CollisionPolygon2D.scale.y = 1
 		if is_on_floor:
 			apply_central_impulse(Vector2(0, jump_velocity))
+			$JumpSound.play()
 
 func _on_floor_detection_area_body_entered(_body: Node2D) -> void:
 	is_on_floor = true

@@ -16,23 +16,22 @@ func _ready() -> void:
 	score1.text = "0"
 	score2.text = "0"
 
+func reset_ball(pos: Vector2) -> void:
+	ball.queue_free()
+	ball = ball_scene.instantiate() as Node2D
+	ball.position = pos
+	get_tree().get_root().add_child(ball)
+
 func _on_goal_1_body_entered(body: Node2D):
 	if !body.is_in_group("ball"): return
 
+	$GoalSound.play()
 	score2.text = str(score2.text.to_int() + 1)
-
-	ball.queue_free()
-
-	ball = ball_scene.instantiate() as Node2D
-	ball.position = $Spawn2.position
-	add_child(ball)
+	call_deferred("reset_ball", $Spawn2.position)
 
 func _on_goal_2_body_entered(body: Node2D):
 	if !body.is_in_group("ball"): return
 
-	ball.queue_free()
+	$GoalSound.play()
 	score1.text = str(score1.text.to_int() + 1)
-
-	ball = ball_scene.instantiate() as Node2D
-	ball.position = $Spawn1.position
-	add_child(ball)
+	call_deferred("reset_ball", $Spawn1.position)

@@ -21,4 +21,8 @@ If for some reason someone wants to use or tinker this project...
 
 Code is MIT
 
-Visual assets are Creative Commons zero
+Visual assets are Creative Commons zero, made using [Aseprite](https://www.aseprite.org/).
+
+Song is Creative Commons zero, made with [BeepBox](https://www.beepbox.co).
+
+Sound effects are made with [sfxr](http://www.drpetter.se/project_sfxr.html).
