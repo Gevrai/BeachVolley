@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://bi0wjkso8pym1"]
+[gd_scene load_steps=14 format=3 uid="uid://bi0wjkso8pym1"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_y1wcq"]
 [ext_resource type="Texture2D" uid="uid://75glkxib6ktu" path="res://assets/player.png" id="2_a1u8d"]
 [ext_resource type="PackedScene" uid="uid://fkdg6k35vk62" path="res://eye.tscn" id="2_bbohh"]
 [ext_resource type="AudioStream" uid="uid://canxyhr7pttlu" path="res://assets/jump.wav" id="4_7d8pl"]
+[ext_resource type="Script" path="res://AIPlayer.gd" id="5_0eepq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kawy1"]
 atlas = ExtResource("2_a1u8d")
@@ -103,6 +104,10 @@ shape = SubResource("RectangleShape2D_qq01y")
 [node name="JumpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_7d8pl")
 volume_db = -20.0
+
+[node name="AIPlayer" type="Node2D" parent="."]
+position = Vector2(16, -16)
+script = ExtResource("5_0eepq")
 
 [connection signal="body_entered" from="FloorDetectionArea" to="." method="_on_floor_detection_area_body_entered"]
 [connection signal="body_exited" from="FloorDetectionArea" to="." method="_on_floor_detection_area_body_exited"]
